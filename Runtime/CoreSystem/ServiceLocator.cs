@@ -57,7 +57,7 @@ namespace AppCore.Runtime
             Debug.LogWarning($"ServiceLocator: {typeof(T).Name} not found.");
             return null;
         }
-        
+
         /// <summary>
         /// Componentを取得する。なければ、生成をする
         /// </summary>
@@ -68,16 +68,31 @@ namespace AppCore.Runtime
             return ComponentLocator.GetInternal<T>();
         }
 
+        /// <summary>
+        /// Componentをキャッシュになければ、追加する
+        /// </summary>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static void TryAddCache<T>(T value) where T : Component
+        {
+            if (ComponentLocator.IsCached<T>())
+                return;
+
+            ComponentLocator.AddCache(value);
+        }
+
         #region ComponentLocator
+
         private static class ComponentLocator
         {
             private const float GCInterval = 31f;
             private static readonly Dictionary<Type, IStaticCache> cache = new();
-            
+
             private static float lastGCAt;
 
             private static readonly List<Type> compTypesToRemove = new();
-            
+
             public static T GetInternal<T>() where T : Component
             {
                 var comp = GetOrNull<T>();
@@ -89,7 +104,7 @@ namespace AppCore.Runtime
                 if (comp)
                 {
                     UnCache<T>();
-                    Cache(comp);
+                    AddCache(comp);
                     return comp;
                 }
                 return null!;
@@ -110,17 +125,22 @@ namespace AppCore.Runtime
                 value = UnityEngine.Object.FindObjectOfType<T>();
                 if (value)
                 {
-                    Cache(value);
+                    AddCache(value);
                     return value;
                 }
 
                 return null;
             }
-            
-            private static void Cache<T>(T value) where T : Component
+
+            public static void AddCache<T>(T value) where T : Component
             {
                 StaticCache<T>.Value = value;
                 cache.Add(typeof(T), StaticCache<T>.Instance);
+            }
+
+            public static bool IsCached<T>() where T : Component
+            {
+                return cache.ContainsKey(typeof(T));
             }
 
             private static void UnCache<T>() where T : Component
@@ -169,6 +189,8 @@ namespace AppCore.Runtime
                 }
             }
         }
+
         #endregion ComponentLocator
+
     }
 }
