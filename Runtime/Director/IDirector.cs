@@ -4,6 +4,6 @@ namespace AppCore.Runtime
 {
     public interface IDirector
     {
-         Awaitable PushAsync(string name);
+        Awaitable PushAsync(string key);
     }
 }
