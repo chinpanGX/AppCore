@@ -6,14 +6,14 @@ namespace AppCore.Runtime
     public class ViewScreen : MonoBehaviour
     {
         [SerializeField] private Camera screenCamera;
-        private readonly Stack<IView> stack = new(0);
+        private readonly List<IView> views = new(10);
         private int sortingOrder;
 
         public void Push(IView view)
         {
-            if (!stack.Contains(view))
+            if (!views.Contains(view))
             {
-                stack.Push(view);
+                views.Add(view);
             }
 
             view.Canvas.worldCamera = screenCamera;
@@ -21,15 +21,17 @@ namespace AppCore.Runtime
             view.Canvas.transform.SetParent(transform);
         }
 
-        public void Pop()
+        public void Pop(IView view)
         {
-            if (stack.TryPop(out var view))
-            {
-                sortingOrder--;
-                sortingOrder = Mathf.Max(sortingOrder, 0);
-                view.Close();
-            }
+            if (views.Count == 0)
+                return;
+
+            if (!views.Contains(view))
+                return;
+
+            sortingOrder--;
+            sortingOrder = Mathf.Max(sortingOrder, 0);
+            view.Close();
         }
     }
-
 }
