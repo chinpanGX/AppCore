@@ -5,7 +5,7 @@ Unityアプリを作成する際に共通で利用できるコア機能を提供
 # 導入方法
 1. PackageManager > Add package from git URL...から追加
 ```
-https://github.com/chinpanGX/AppCore.git
+https://github.com/chinpanGX/AppCore.git?path=AppCoreUnityProject/Assets/AppCore
 ```
 
 # 提供している機能
