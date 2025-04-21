@@ -1,9 +1,0 @@
-﻿{
-    "name": "com.chinpangx.appcore",
-    "displayName": "AppCore",
-    "version": "1.0.0",
-    "description": "アプリで共通利用するコアに関する機能",
-    "author": {
-        "name": "shota.deai"
-    }
-}
