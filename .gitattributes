@@ -6,5 +6,5 @@
 *.asset linguist-generated=true
 *.shader linguist-vendored=true
 
-AppCore/AppCoreUnityProject/Assets/Sample/Settings/* linguist-generated=true
-AppCore/AppCoreUnityProject/Assets/Sample/TextMesh Pro/* linguist-generated=true
+AppCoreUnityProject/Assets/Sample/Settings/* linguist-generated=true
+AppCoreUnityProject/Assets/Sample/TextMesh Pro/* linguist-generated=true
