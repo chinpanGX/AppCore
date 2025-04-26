@@ -4,5 +4,7 @@
 *.meta linguist-generated=true
 *.unity linguist-generated=true
 *.asset linguist-generated=true
+*.shader linguist-vendored=true
+
 AppCore/AppCoreUnityProject/Assets/Sample/Settings/* linguist-generated=true
 AppCore/AppCoreUnityProject/Assets/Sample/TextMesh Pro/* linguist-generated=true
