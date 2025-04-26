@@ -1,6 +1,6 @@
 ﻿* text=auto eol=lf
 
-*.cs linguist-language=CS
+*.cs linguist-language=C#
 *.meta linguist-vendored=false
 *.unity linguist-vendored=false
 *.asset linguist-vendored=false
