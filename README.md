@@ -9,6 +9,17 @@ https://github.com/chinpanGX/AppCore.git?path=AppCoreUnityProject/Assets/AppCore
 ```
 
 # 提供している機能
+CoreSystem
 - サービスロケータ
 - ステートマシン
-- MVPアーキテクチャのベースクラス
+
+MVP
+- MVPアーキテクチャのインターフェース
+
+ViewSystem
+- ViewScreen/ModalScreenの2層のレイヤーによるUI表示システム
+- セーフエリア
+
+# ライセンス
+本ソフトウェアはMITライセンスで公開しています。
+https://github.com/chinpanGX/AppCore/blob/main/LICENSE
