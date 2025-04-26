@@ -1,0 +1,8 @@
+﻿* text=auto eol=lf
+
+*.cs linguist-language=CS
+*.meta linguist-vendored=false
+*.unity linguist-vendored=false
+*.asset linguist-vendored=false
+AppCore/AppCoreUnityProject/Assets/Sample/Settings linguist-vendored=false
+AppCore/AppCoreUnityProject/Assets/Sample/TextMesh Pro linguist-vendored=false

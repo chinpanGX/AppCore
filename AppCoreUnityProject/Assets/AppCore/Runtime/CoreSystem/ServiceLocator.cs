@@ -59,7 +59,7 @@ namespace AppCore.Runtime
         }
 
         /// <summary>
-        /// Componentを取得する。なければ、生成をする
+        /// Componentを取得する。
         /// </summary>
         /// <typeparam name="T">型</typeparam>
         /// <returns> インスタンス </returns>
@@ -81,17 +81,26 @@ namespace AppCore.Runtime
 
             ComponentLocator.AddCache(value);
         }
-
+        
         #region ComponentLocator
 
         private static class ComponentLocator
         {
             private const float GCInterval = 31f;
-            private static readonly Dictionary<Type, IStaticCache> cache = new();
-
+            private static readonly Dictionary<Type, IStaticCache> Cache = new();
             private static float lastGCAt;
+            private static readonly List<Type> CompTypesToRemove = new();
+            
+            public static void AddCache<T>(T value) where T : Component
+            {
+                StaticCache<T>.Value = value;
+                Cache.Add(typeof(T), StaticCache<T>.Instance);
+            }
 
-            private static readonly List<Type> compTypesToRemove = new();
+            public static bool IsCached<T>() where T : Component
+            {
+                return Cache.ContainsKey(typeof(T));
+            }
 
             public static T GetInternal<T>() where T : Component
             {
@@ -131,22 +140,11 @@ namespace AppCore.Runtime
 
                 return null;
             }
-
-            public static void AddCache<T>(T value) where T : Component
-            {
-                StaticCache<T>.Value = value;
-                cache.Add(typeof(T), StaticCache<T>.Instance);
-            }
-
-            public static bool IsCached<T>() where T : Component
-            {
-                return cache.ContainsKey(typeof(T));
-            }
-
+            
             private static void UnCache<T>() where T : Component
             {
                 StaticCache<T>.Value = null;
-                cache.Remove(typeof(T));
+                Cache.Remove(typeof(T));
             }
 
             private static void GCIfNeeded()
@@ -161,15 +159,15 @@ namespace AppCore.Runtime
 
             private static void GC()
             {
-                foreach (var kv in cache.Where(kv => kv.Value == null))
+                foreach (var kv in Cache.Where(kv => kv.Value == null))
                 {
-                    compTypesToRemove.Add(kv.Key);
+                    CompTypesToRemove.Add(kv.Key);
                 }
-                foreach (var compType in compTypesToRemove)
+                foreach (var compType in CompTypesToRemove)
                 {
-                    cache.Remove(compType);
+                    Cache.Remove(compType);
                 }
-                compTypesToRemove.Clear();
+                CompTypesToRemove.Clear();
             }
 
             private interface IStaticCache
