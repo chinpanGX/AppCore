@@ -1,3 +1,6 @@
+> [!CAUTION]
+> [UniVerseKit](https://github.com/chinpanGX/UniVerseKit)へ、本機能を統合しました。こちらの利用を推奨しています。
+
 # AppCore
 # 概要
 Unityアプリを作成する際に共通で利用できるコア機能を提供するライブラリ
